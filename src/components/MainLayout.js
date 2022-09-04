@@ -5,12 +5,11 @@ import { Navigation } from './Navigation';
 import { Footer } from './Footer';
 import { Loading } from './Loading';
 
-export const MainLayout = () => {
-  const navigate = useNavigate();
+export const MainLayout = ({ navigate }) => {
   const session = useSession();
 
   return (
-    <div>
+    <StyledMainLayout>
       {!session.loading ? (
         <div>
           <Navigation session={session} navigate={navigate} />
@@ -22,7 +21,7 @@ export const MainLayout = () => {
         <Loading />
       )}
       <Footer />
-    </div>
+    </StyledMainLayout>
   );
 };
 
@@ -32,3 +31,8 @@ const StyledContainer = styled.div(({ isLoggedIn }) => {
     padding: 10px;
   `;
 });
+
+const StyledMainLayout = styled.div`
+  background-color: #bdbdbd;
+  padding: 10px;
+`
