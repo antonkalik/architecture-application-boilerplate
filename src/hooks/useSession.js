@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { fakeCache } from '../data/fakeCache';
+import { fakeCache } from '../fake/fakeCache';
 import { SESSION_KEY } from '../constants';
-import { fakeApi } from '../data/fakeApi';
+import { fakeApi } from '../fake/fakeApi';
 
 export const useSession = () => {
   const cache = fakeCache.getItem(SESSION_KEY);

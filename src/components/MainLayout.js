@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet } from 'react-router';
 import styled, { css } from 'styled-components';
 import { useSession } from '../hooks/useSession';
 import { Navigation } from './Navigation';

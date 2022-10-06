@@ -1,5 +1,5 @@
-import { fakeApi } from '../data/fakeApi';
-import { fakeCache } from '../data/fakeCache';
+import { fakeApi } from '../fake/fakeApi';
+import { fakeCache } from '../fake/fakeCache';
 import { SESSION_KEY } from '../constants';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import { db } from '../__mocks__/db.mock';
+import { db } from 'src/__mocks__/db.mock';
 import { fakeCache } from './fakeCache';
 
 class FakeApi {
@@ -39,26 +39,6 @@ class FakeApi {
     this.context = {};
     fakeCache.clear();
     return this.#asyncRequest(() => null);
-  }
-
-  getUser(user_id) {
-    return this.#asyncRequest(() => {
-      const user = FakeApi.userById(user_id);
-      return user
-        ? {
-            id: user.id,
-            title: user.username,
-            email: user.email,
-          }
-        : null;
-    });
-  }
-
-  getPosts(user_id) {
-    return this.#asyncRequest(() => {
-      const user = FakeApi.userById(user_id);
-      return user?.posts || null;
-    });
   }
 }
 

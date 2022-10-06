@@ -8,7 +8,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { App } from '../App';
 import { BrowserRouter } from 'react-router-dom';
-import { fakeCache } from '../data/fakeCache';
+import { fakeCache } from '../fake/fakeCache';
 
 beforeAll(() => {
   fakeCache.clear();
