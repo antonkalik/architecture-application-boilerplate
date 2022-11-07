@@ -42,9 +42,7 @@ export const Navigation = ({ navigate, session }) => {
         <div>
           <Link to="/about">About</Link>
           <Link to="/signup">Sign Up</Link>
-          <button disabled={isLoading} onClick={onLogin}>
-            {isLoading ? 'loading...' : 'Login'}
-          </button>
+          <Link to="/login">Login</Link>
         </div>
       )}
     </StyledNavigation>

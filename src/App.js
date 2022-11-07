@@ -3,10 +3,10 @@ import { Route, Routes } from 'react-router-dom';
 import { MainLayout } from './components/MainLayout';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute';
+import { LoginView } from './views/LoginView';
 
 const LandingView = () => <div>Landing View</div>;
 const ListsPostsView = () => <div>List Posts View</div>;
-const LoginView = () => <div>Login View</div>;
 const SignUpView = () => <div>SignUp View</div>;
 const ForgotPasswordView = () => <div>Forgot Password View</div>;
 const AboutView = () => <div>About View</div>;
