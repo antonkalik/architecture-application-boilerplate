@@ -11,7 +11,7 @@ export const LoginView = () => {
 
   const onLogin = async () => {
     setLoading(true);
-    const sessionData = await fakeApi.login();
+    const sessionData = await fakeApi.login(1);
     session.setData(sessionData);
     fakeCache.setItem(SESSION_KEY, sessionData);
     setLoading(false);

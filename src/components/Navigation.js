@@ -1,21 +1,11 @@
 import { fakeApi } from '../data/fakeApi';
 import { fakeCache } from '../data/fakeCache';
-import { SESSION_KEY } from '../constants';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Navigation = ({ navigate, session }) => {
   const [isLoading, setLoading] = useState(false);
-
-  const onLogin = async () => {
-    setLoading(true);
-    const sessionData = await fakeApi.login();
-    session.setData(sessionData);
-    fakeCache.setItem(SESSION_KEY, sessionData);
-    setLoading(false);
-    navigate('/');
-  };
 
   const onLogout = async () => {
     setLoading(true);

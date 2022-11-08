@@ -16,11 +16,13 @@ const NotFoundView = () => <div>Not Found View</div>;
 
 const HomeView = () => {
   const session = useOutletContext();
+
   return session.data ? <ListsPostsView /> : <LandingView />;
 };
 
 const UserView = () => {
   const session = useOutletContext();
+
   return <div>User {session.data?.email} View</div>;
 };
 
