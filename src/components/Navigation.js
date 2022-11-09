@@ -1,20 +1,17 @@
-import { fakeApi } from '../data/fakeApi';
-import { fakeCache } from '../data/fakeCache';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Navigation = ({ navigate, session }) => {
+export const Navigation = ({ session }) => {
   const [isLoading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onLogout = async () => {
     setLoading(true);
-    fakeCache.clear();
-    await fakeApi.logout();
-    session.setData(null);
+    await session.logout();
     setLoading(false);
     navigate('/');
-  };
+  }
 
   return (
     <StyledNavigation>

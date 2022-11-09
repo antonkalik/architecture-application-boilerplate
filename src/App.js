@@ -1,9 +1,19 @@
-import { useOutletContext, useParams } from 'react-router';
-import { Route, Routes } from 'react-router-dom';
+import {
+  createRoutesFromElements,
+  Outlet,
+  RouterProvider,
+  useOutletContext,
+  useParams,
+  useRouteError,
+} from 'react-router';
+import { createBrowserRouter, Route } from 'react-router-dom';
 import { MainLayout } from './components/MainLayout';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute';
-import { LoginView } from './views/LoginView';
+import { LoginView, action as loginAction } from './views/LoginView';
+import { fakeCache } from './data/fakeCache';
+import { useEffect, useState } from 'react';
+import { fakeApi } from './data/fakeApi';
 
 const LandingView = () => <div>Landing View</div>;
 const ListsPostsView = () => <div>List Posts View</div>;
@@ -28,19 +38,46 @@ const UserView = () => {
 
 const PostView = () => {
   const params = useParams();
-  // request with params.uuid from db the post and return <NotFoundView /> in case is post does not exist
   return <div>Post: {params.uuid} View</div>;
 };
 
-export const App = () => {
+const ErrorView = () => {
+  const error = useRouteError();
+
   return (
-    <Routes>
+    <div>
+      Error View
+      <p>{error.message}</p>
+    </div>
+  );
+};
+
+const SessionProvider = () => {
+  const cache = fakeCache.getItem('cache');
+  const [data, setData] = useState(cache);
+
+  useEffect(() => {
+    fakeApi.getSession().then(setData);
+  }, []);
+
+  const logout = async () => {
+    setData(null);
+    await fakeApi.logout();
+  };
+
+  return <Outlet context={{ data, login: setData, logout }} />;
+};
+
+const router = createBrowserRouter(
+  createRoutesFromElements([
+    <Route element={<SessionProvider />} errorElement={<ErrorView />}>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomeView />} />
         <Route path="/about" element={<AboutView />} />
         <Route
           path="/login"
           element={<PublicRoute element={<LoginView />} />}
+          action={loginAction}
         />
         <Route
           path="/signup"
@@ -68,6 +105,10 @@ export const App = () => {
         </Route>
       </Route>
       <Route path="*" element={<NotFoundView />} />
-    </Routes>
-  );
+    </Route>,
+  ]),
+);
+
+export const App = () => {
+  return <RouterProvider router={router} />;
 };

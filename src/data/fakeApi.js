@@ -23,14 +23,21 @@ class FakeApi {
     return this.#asyncRequest(() => this.session);
   }
 
-  login(id) {
-    this.session = db.find(user => user.id === id);
-    fakeCache.setItem(FakeApi.KEY_CACHE, db.find(user => user.id === id));
-    return this.getSession();
+  login({ username, password }) {
+    this.session = db.find(
+      user => user.username === username && user.password === password,
+    );
+    if (this.session) {
+      fakeCache.setItem(FakeApi.KEY_CACHE, this.session);
+      return this.getSession();
+    } else {
+      fakeCache.clear();
+      throw new Error('Invalid credentials');
+    }
   }
 
   logout() {
-    this.session = null
+    this.session = null;
     fakeCache.clear();
     return this.#asyncRequest(() => null);
   }

@@ -1,25 +1,19 @@
-import { Outlet } from 'react-router';
+import { Outlet, useOutletContext } from 'react-router';
 import styled, { css } from 'styled-components';
-import { useSession } from '../hooks/useSession';
 import { Navigation } from './Navigation';
 import { Footer } from './Footer';
-import { Loading } from './Loading';
 
-export const MainLayout = ({ navigate }) => {
-  const session = useSession();
+export const MainLayout = () => {
+  const session = useOutletContext();
 
   return (
     <StyledMainLayout>
-      {!session.loading ? (
-        <div>
-          <Navigation session={session} navigate={navigate} />
-          <StyledContainer isLoggedIn={!!session.data}>
-            <Outlet context={session} />
-          </StyledContainer>
-        </div>
-      ) : (
-        <Loading />
-      )}
+      <div>
+        <Navigation session={session} />
+        <StyledContainer isLoggedIn={!!session}>
+          <Outlet context={session} />
+        </StyledContainer>
+      </div>
       <Footer />
     </StyledMainLayout>
   );
@@ -35,4 +29,4 @@ const StyledContainer = styled.div(({ isLoggedIn }) => {
 const StyledMainLayout = styled.div`
   background-color: #bdbdbd;
   padding: 10px;
-`
+`;
